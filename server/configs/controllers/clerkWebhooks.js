@@ -3,6 +3,7 @@ import { Webhook } from "svix";
 
 const clerkWebHooks = async (req, res) => {
     try {
+        console.log("🔥 Clerk Webhook received:", req.body);
         // create svix instance clerk webhook secret
         const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET)
 
@@ -23,7 +24,7 @@ const clerkWebHooks = async (req, res) => {
         const userData = {
             _id: data.id,
             email: data.email_addresses[0].email_address,
-            username: data.firt_name + ' ' + data.last_name,
+            username: data.first_name + ' ' + data.last_name,
             image: data.image_url,
         }
 
