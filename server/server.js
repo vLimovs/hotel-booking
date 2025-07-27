@@ -16,7 +16,7 @@ app.use(clerkMiddleware())
 
 
 // api to listen clerk webhooks
-app.use('api/clerk', clerkWebHooks)
+app.use('/api/clerk', clerkWebHooks)
 
 app.get('/', (req, res) => res.send('API is working fine'))
 
