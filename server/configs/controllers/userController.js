@@ -25,8 +25,8 @@ export const storeRecentSearchedCities = async (req, res) => {
             user.recentSearchedCities.push(recentSearchedCities)
         }
         await user.save();
-        res.json({success: true, message: 'city addded'})
+        res.json({ success: true, message: 'city addded' })
     } catch (error) {
-        res.json({success: false, message: error.message})
+        res.json({ success: false, message: error.message })
     }
 }
