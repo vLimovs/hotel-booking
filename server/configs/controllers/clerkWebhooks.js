@@ -21,12 +21,19 @@ const clerkWebHooks = async (req, res) => {
 
         const { data, type } = req.body
 
+        const email =
+            data.email_addresses?.[0]?.email_address || "unknown@example.com";
+
+        const username = `${data.first_name || ""} ${data.last_name || ""}`.trim();
+
         const userData = {
             _id: data.id,
-            email: data.email_addresses[0].email_address,
-            username: data.first_name + ' ' + data.last_name,
-            image: data.image_url,
-        }
+            email,
+            username,
+            image: data.image_url || "",
+            recentSearchedCities: [], // ← ты же используешь это поле в модели
+        };
+
 
         // swith cases for different events
 
@@ -52,8 +59,8 @@ const clerkWebHooks = async (req, res) => {
         })
     } catch (error) {
         console.log(error.message);
-        res.json({success: false, message: error.message});
-}
+        res.json({ success: false, message: error.message });
+    }
 }
 
 export default clerkWebHooks
