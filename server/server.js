@@ -2,10 +2,10 @@ import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
 import connectDB from './configs/db.js';
-import { clerkMiddleware } from '@clerk/express'
 import clerkWebHooks from './configs/controllers/clerkWebhooks.js';
 import userRouter from './routes/userRoutes.js';
 import hotelRouter from './routes/hotelRoutes.js';
+import bodyParser from "body-parser";
 
 connectDB()
 
@@ -13,8 +13,8 @@ const app = express()
 app.use(cors()) // Enable Cross-Origin Resource Sharing
 
 // Middleware
-app.use(express.json())
-app.use(clerkMiddleware())
+app.use("/api/clerk", bodyParser.raw({ type: "*/*" })); // raw body только для webhook
+app.use(express.json()); // обычный JSON — для всего остального
 
 
 // api to listen clerk webhooks
